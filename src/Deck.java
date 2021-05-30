@@ -37,4 +37,14 @@ public class Deck {
             this.deckOfCards.set(secondIndex,tempCard);
         }
     }
+    public Card getTopCard(){
+        return this.deckOfCards.get(this.deckOfCards.size()-1);
+    }
+    /*
+     public Card removeBottomCard(){
+        Card card = this.deckOfCards.get(0);
+        this.deckOfCards.remove(0);
+        return card;
+        }
+     */
 }
