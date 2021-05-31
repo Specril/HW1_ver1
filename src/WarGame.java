@@ -1,6 +1,6 @@
 public class WarGame {
-    private Player player1;
-    private Player player2;
+    private Player player1 = new Player("");
+    private Player player2 = new Player("");
     private Deck temp1;
     private Deck temp2;
 
@@ -69,52 +69,92 @@ public class WarGame {
         System.out.println("Initializing the game...");
         initializeGame();
         Player[] orderOfPlay = firstPlayerToPlay(this.player1, this.player2);
+
         int i = 1;
         boolean isWar = false;
-        while (!this.player1.outOfCards() || !this.player2.outOfCards()) {
+
+        while (!this.player1.outOfCards() && !this.player2.outOfCards()) { // loops only if both players have cards remaining
             System.out.println("------------------------- Round number " + i + " -------------------------");
-            temp1.addCard(orderOfPlay[0].drawCard());
-            temp2.addCard(orderOfPlay[1].drawCard());
+
+            temp1.addCard(orderOfPlay[0].drawCard()); //draw card for the first player
+            temp2.addCard(orderOfPlay[1].drawCard()); //draw card for the second player
+
             if (temp1.getTopCard().getValue() != temp2.getTopCard().getValue()) {
-                System.out.println(orderOfPlay[0].getName() + " drew" + temp1.deckOfCards.get(0).toString());
-                System.out.println(orderOfPlay[1].getName() + " drew" + temp2.deckOfCards.get(0).toString());
-                playTurn(orderOfPlay, temp1, temp2);
+                playTurn(orderOfPlay, temp1, temp2, isWar);
+
             } else {
                 isWar = true;
-                while (isWar) {
+
+                while (temp1.getTopCard().getValue() == temp2.getTopCard().getValue()) {
+
                     System.out.println("Starting a war...");
-                    for (int i = 0; i < 3; i++) {
+                    int j = 0;
+
+                    while (j < 2) {
+                        if (this.player1.outOfCards() || this.player2.outOfCards()) {
+                            break;
+                        }
                         temp1.addCard(orderOfPlay[0].drawCard());
                         System.out.println(orderOfPlay[0].toString() + " drew a war card...");
                         temp2.addCard(orderOfPlay[1].drawCard());
-                        System.out.println(orderOfPlay[0].toString() + " drew a war card...");
+                        System.out.println(orderOfPlay[1].toString() + " drew a war card...");
+                        j++;
                     }
-                    if (temp1.getTopCard().getValue() != temp2.getTopCard().getValue()) {
-                        isWar = false;
+                    if (this.player1.outOfCards() || this.player2.outOfCards()) {
+                        break;
                     }
-
+                    temp1.addCard(orderOfPlay[0].drawCard());
+                    temp2.addCard(orderOfPlay[1].drawCard());
+                    if (temp1.getTopCard().getValue() == temp2.getTopCard().getValue()) {
+                        continue;
+                    } else {
+                        playTurn(orderOfPlay, temp1, temp2, isWar);
+                    }
+                    isWar = false;
+                    break;
                 }
-
             }
             i++;
+        }
+        return playerWon(orderOfPlay);
+    }
+
+    public void playTurn(Player[] order, Deck temp1, Deck temp2, boolean isWar) {
+
+        drewCard(order[0], order[1], temp1.getTopCard().toString(), temp2.getTopCard().toString());
+
+        if (temp1.getTopCard().getValue() > temp2.getTopCard().getValue()) {
+            clearTableAfterTurn(order[0], isWar);
+        } else {
+            clearTableAfterTurn(order[1], isWar);
         }
 
     }
 
-    public void playTurn(Player[] order, Deck temp1, Deck temp2) {
-        if (temp1.getTopCard().getValue() > temp2.getTopCard().getValue()) {
-            while (!temp1.isEmpty() && !temp2.isEmpty()) {
-                order[0].addCardToWinningDeck(temp1.removeTopCard());
-                order[0].addCardToWinningDeck(temp2.removeTopCard());
-            }
-            System.out.println(order[0].toString() + " won");
-        } else {
-            while (!temp1.isEmpty() && !temp2.isEmpty()) {
-                order[1].addCardToWinningDeck(temp1.removeTopCard());
-                order[1].addCardToWinningDeck(temp2.removeTopCard());
-            }
-            System.out.println(order[1].toString() + " won");
+    public void clearTableAfterTurn(Player playerWonRound, boolean isWar) {
+        while (!temp2.isEmpty()) {
+            playerWonRound.addCardToWinningDeck(temp2.removeTopCard()); // take all cards from second's deck and add them to winner's winning deck
         }
+        while (!temp1.isEmpty()) {
+            playerWonRound.addCardToWinningDeck(temp1.removeTopCard()); // take all cards from first's deck and add them to winner's winning deck
+        }
+        if (isWar) {
+            System.out.println(playerWonRound.toString() + " won the war"); // if in war then print this statement
+        } else {
+            System.out.println(playerWonRound.toString() + " won");
+        }
+    }
+
+    public void drewCard(Player first, Player second, String card1, String card2) {
+        System.out.println(first.getName() + " drew " + card1);
+        System.out.println(second.getName() + " drew " + card2);
+    }
+
+    public String playerWon(Player[] order) {
+        if (order[0].outOfCards()) {
+            return order[1].toString();
+        }
+        return order[0].toString();
     }
 
 }

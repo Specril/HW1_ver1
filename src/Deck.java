@@ -28,7 +28,7 @@ public class Deck {
         return this.deckOfCards.isEmpty();
     }
     public void shuffle(){
-        Main.rnd= new Random();
+        //Main.rnd= new Random();
         for (int i = 0; i < 50; i++) {
             int firstIndex = Main.rnd.nextInt(this.deckOfCards.size());
             int secondIndex = Main.rnd.nextInt(this.deckOfCards.size());

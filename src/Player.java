@@ -44,7 +44,7 @@ public class Player {
     }
 
     public Card drawCard() {
-        if (this.playingDeck.isEmpty()) {
+        if (this.playingDeck.isEmpty() && !this.winningDeck.isEmpty()) {
             this.winningDeck.shuffle();
             this.playingDeck.deckOfCards.addAll(this.winningDeck.deckOfCards);
             this.winningDeck.deckOfCards.clear();

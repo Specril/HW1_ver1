@@ -7,7 +7,7 @@ public class Main {
     public static Random rnd;
 
     public static void main(String[] args) throws FileNotFoundException {
-       /* String filePath = args[0];
+        String filePath = "C:/Users/User/IdeaProjects/HW1/HW1_input.txt";
         File file = new File(filePath);
         Scanner scanner = new Scanner(file);
 
@@ -22,19 +22,9 @@ public class Main {
             WarGame game = new WarGame(player1, player2);
             String winner = game.start();
             System.out.println("+++++++++++++++++++++++++++++++++++++++");
-            System.out.println(winner + " won the game!\n\n"); */
-        Deck deck1 = new Deck(true);
-        Deck deck2 = new Deck(true);
-        // Card card = new Card(Shape.SPADES, 11);
-        // deck.addCard(card);
-        // deck.removeTopCard();
-        deck1.shuffle();
-        System.out.println(deck1.deckOfCards.toString());
-        System.out.println(deck2.deckOfCards.toString());
-        deck2.deckOfCards=deck1.deckOfCards;
-        deck1.deckOfCards.clear();
-        System.out.println(deck1.deckOfCards.toString());
-        System.out.println(deck2.deckOfCards.toString());
+            System.out.println(winner + " won the game!\n\n");
+
         }
     }
+}
 
