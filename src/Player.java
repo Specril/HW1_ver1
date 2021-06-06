@@ -1,9 +1,8 @@
-import java.util.ArrayList;
 
 public class Player {
     private String name;
-    private Deck playingDeck;
-    private Deck winningDeck;
+    private final Deck playingDeck;
+    private final Deck winningDeck;
 
     public Player(String name) {
         this.name = name;
@@ -15,24 +14,8 @@ public class Player {
         return this.name;
     }
 
-    public Deck getPlayingDeck() {
-        return this.playingDeck;
-    }
-
-    public Deck getWinningDeck() {
-        return this.winningDeck;
-    }
-
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setPlayingDeck(Deck deck) {
-        this.playingDeck = deck;
-    }
-
-    public void setWinningDeck(Deck deck) {
-        this.winningDeck = deck;
     }
 
     public void addCardToWinningDeck(Card card) {

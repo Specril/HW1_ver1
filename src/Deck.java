@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Deck {
-    public ArrayList<Card> deckOfCards = new ArrayList<Card>();
+    public ArrayList<Card> deckOfCards = new ArrayList<>();
 
     public Deck(boolean isFullDeck) {
         Shape[] shapeArray = {Shape.SPADES, Shape.DIAMONDS, Shape.CLUBS, Shape.HEARTS};

@@ -1,26 +1,14 @@
 public class Card {
-    private Shape shape;
-    private int value;
+    private final Shape shape;
+    private final int value;
 
     public Card(Shape shape, int value) {
         this.shape = shape;
         this.value = value;
     }
 
-    public Shape getShape() {
-        return shape;
-    }
-
     public int getValue() {
         return value;
-    }
-
-    public void setShape(Shape shape) {
-        this.shape = shape;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
     }
 
     /**
