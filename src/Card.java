@@ -23,6 +23,10 @@ public class Card {
         this.value = value;
     }
 
+    /**
+     * @param other card of opposing player.
+     * @return -1 if current card value is lower than other's , 0 if values are equal and 1 if the current value is higher than other's.
+     */
     public int compare(Card other) {
         if (this.value > other.getValue()) {
             return 1;
@@ -50,7 +54,7 @@ public class Card {
                 valueToReturn = "King";
                 break;
             default:
-                valueToReturn = ((Integer)this.value).toString();
+                valueToReturn = ((Integer) this.value).toString();
         }
         switch (this.shape) {
             case SPADES:
