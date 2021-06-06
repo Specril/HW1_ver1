@@ -86,7 +86,7 @@ public class WarGame {
                 isWar = true;
 
                 while (temp1.getTopCard().getValue() == temp2.getTopCard().getValue()) {
-
+                    drewCard(orderOfPlay[0], orderOfPlay[1], temp1.getTopCard().toString(), temp2.getTopCard().toString());
                     System.out.println("Starting a war...");
                     int j = 0;
 
@@ -95,9 +95,9 @@ public class WarGame {
                             break;
                         }
                         temp1.addCard(orderOfPlay[0].drawCard());
-                        System.out.println(orderOfPlay[0].toString() + " drew a war card...");
+                        System.out.println(orderOfPlay[0].toString() + " drew a war card");
                         temp2.addCard(orderOfPlay[1].drawCard());
-                        System.out.println(orderOfPlay[1].toString() + " drew a war card...");
+                        System.out.println(orderOfPlay[1].toString() + " drew a war card");
                         j++;
                     }
                     if (this.player1.outOfCards() || this.player2.outOfCards()) {
@@ -132,10 +132,8 @@ public class WarGame {
     }
 
     public void clearTableAfterTurn(Player playerWonRound, boolean isWar) {
-        while (!temp2.isEmpty()) {
+        while (!temp2.isEmpty() && !temp1.isEmpty()) {
             playerWonRound.addCardToWinningDeck(temp2.removeTopCard()); // take all cards from second's deck and add them to winner's winning deck
-        }
-        while (!temp1.isEmpty()) {
             playerWonRound.addCardToWinningDeck(temp1.removeTopCard()); // take all cards from first's deck and add them to winner's winning deck
         }
         if (isWar) {
